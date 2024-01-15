@@ -1,0 +1,108 @@
+Explanation of the Java code that is used to call the currency conversion service created with Flask.
+
+```java
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.OutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+public class JavaClient {
+
+   public static void main(String[] args) throws Exception {
+      String url = "http://localhost:5000/convert";
+      Scanner scanner = new Scanner(System.in);
+
+      // User input for amount
+      double amountInRs = getUserInput(scanner);
+
+      // JSON payload
+      String jsonInputString = createJsonPayload(amountInRs);
+
+      // URL setup and send request
+      HttpURLConnection connection = setupConnection(url);
+      sendRequest(connection, jsonInputString);
+
+      // Get and print response
+      handleResponse(connection);
+
+      // Close resources
+      scanner.close();
+      connection.disconnect();
+   }
+
+   private static double getUserInput(Scanner scanner) {
+      System.out.print("Enter the amount you want to convert: ");
+      return scanner.nextDouble();
+   }
+
+   private static String createJsonPayload(double amountInRs) {
+      return "{\"amount_in_rs\": " + amountInRs + "}";
+   }
+
+   private static HttpURLConnection setupConnection(String url) throws Exception {
+      URL obj = new URL(url);
+      HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+      connection.setRequestMethod("POST");
+      connection.setRequestProperty("Content-Type", "application/json");
+      connection.setDoOutput(true);
+      return connection;
+   }
+
+   private static void sendRequest(HttpURLConnection connection, String jsonInputString) throws Exception {
+      try (OutputStream os = connection.getOutputStream()) {
+         os.write(jsonInputString.getBytes());
+         os.flush();
+      }
+   }
+
+   private static void handleResponse(HttpURLConnection connection) throws Exception {
+      int responseCode = connection.getResponseCode();
+      BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      String inputLine;
+      StringBuffer response = new StringBuffer();
+
+      while ((inputLine = in.readLine()) != null) {
+         response.append(inputLine);
+      }
+      in.close();
+
+      // Print result
+      System.out.println("Response Code: " + responseCode);
+      System.out.println("Response: " + response.toString());
+   }
+}
+
+```
+
+Explanation:
+
+1. URL and JSON Payload:
+   - `String url = "http://localhost:5000/convert";`: Defines the URL of the currency conversion service.
+   - The `amountInRs` value obtained from user input is used to update the JSON payload dynamically.
+   - `String jsonInputString = "{\"amount_in_rs\": "+amountInRs+"}";`: Represents the JSON payload to be sent to the service. In this case, it specifies an amount in Indian Rupees (`amount_in_rs`).
+
+2. HTTP Connection Setup:
+   - `URL obj = new URL(url);`: Creates a `URL` object with the specified URL.
+   - `HttpURLConnection con = (HttpURLConnection) obj.openConnection();`: Opens an `HttpURLConnection` to the specified URL.
+
+3. Request Configuration:
+   - `con.setRequestMethod("POST");`: Sets the request method to POST.
+   - `con.setRequestProperty("Content-Type", "application/json");`: Sets the content type of the request to JSON.
+
+4. Sending the POST Request:
+   - `con.setDoOutput(true);`: Indicates that this connection will be used for output.
+   - `OutputStream os = con.getOutputStream();`: Retrieves the output stream of the connection.
+   - `os.write(jsonInputString.getBytes());`: Writes the JSON payload to the output stream.
+   - `os.flush();`: Flushes the output stream to ensure all data is sent.
+   - `os.close();`: Closes the output stream.
+
+5. Receiving and Printing the Response:
+   - `int responseCode = con.getResponseCode();`: Retrieves the response code from the server.
+   - `BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));`: Creates a `BufferedReader` to read the response from the input stream.
+   - Reads the response line by line and appends it to a `StringBuffer`.
+   - `System.out.println("Response Code: " + responseCode);`: Prints the response code.
+   - `System.out.println("Response: " + response.toString());`: Prints the entire response.
+
+This Java code performs a simple HTTP POST request to the Flask service, sends a JSON payload, and prints the response received from the service.
