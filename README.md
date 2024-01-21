@@ -1,85 +1,71 @@
-# Currency Conversion Microservice
+# Google Maps and Google Search API Scripts
 
-This project implements a simple currency conversion microservice using Flask in Python. The microservice exposes an endpoint that accepts an amount in Indian Rupees and converts it to another currency. Additionally, a Java client is provided to demonstrate how to consume the microservice.
+These scripts provide simple interfaces for interacting with the Google Maps and Google Search APIs using Python's `requests` library.
 
-## Project Structure
+## Google Maps API Script
 
-- **flask_server.py**: Contains the Flask application that serves as the currency conversion microservice.
-- **JavaClient.java**: A Java client that sends a POST request with an amount in Indian Rupees to the Flask microservice.
+### Description
 
-## Dependencies
+The Google Maps API script retrieves location details using the Google Maps Geocoding API. It takes an API key and a location as input, then prints formatted address, location type, and coordinates.
 
-- Flask
-- Java (for running the Java client)
+### Usage
 
-### Currency Conversion Microservice Overview:
+1. Replace the placeholder `process` in `my_api_key = "process"` with your actual Google Maps API key.
 
-1. **Flask Microservice (`flask_server.py`):**
-   - The Flask application defines a single endpoint `/convert` that accepts POST requests.
-   - It expects a JSON payload with an `amount_in_rs` field representing the amount in Indian Rupees to be converted.
-   - The microservice performs a simple conversion (1 INR = 0.014 USD) and returns the result in the response.
+2. Update the `my_location_info` variable with the location for which you want to retrieve details.
 
-2. **Java Client (`JavaClient.java`):**
-   - The Java client is a simple console application that sends a POST request to the Flask microservice.
-   - It prompts the user to input the amount in Indian Rupees.
-   - The input amount is included in a JSON payload, and the POST request is sent to the microservice.
-   - The client then prints the response received from the microservice.
-
-
-## Running the Flask Microservice
-
-1. Install the required dependencies:
+3. Run the script:
 
    ```bash
-   pip install Flask
+   python google_maps.py
    ```
 
-2. Run the Flask microservice:
+### Example Output
+
+```
+Formatted Address: 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+Location Type: ROOFTOP
+Location: {'lat': 37.4224764, 'lng': -122.0842499}
+--------------------------------------------------
+```
+
+
+## Google Search API Script
+
+### Description
+
+The Google Search API script performs a custom search using the Google Custom Search API. It takes an API key and a search query as input, then prints search results including title, link, and snippet.
+
+
+### Usage
+
+1. Replace the placeholder `google api key` in `_api_key = "google api key"` with your actual Google Custom Search API key.
+
+2. Update the `_search_query` variable with the query for which you want to perform a search.
+
+3. Run the script:
 
    ```bash
-   python flask_server.py
+   python google_search.py
    ```
 
-   The microservice will start running on `http://localhost:5000`.
 
+### Example Output
 
-## Using the Java Client
+```
+Title: Google Search API | Google Developers
+Link: https://developers.google.com/custom-search/docs/tutorial/creatingcse
+Snippet: The JSON API can be used to integrate Bing Custom Search into applications, websites, or other products.
+--------------------------------------------------
+```
 
-1. Open the `JavaClient.java` file in a Java development environment.
+**Note:** 
 
-2. Update the `url` variable with the correct URL of the Flask microservice.
+Ensure that you have the `requests` library installed. If not, you can install it using:
 
-3. Compile and run the Java client.
+```bash
+pip install requests
+```
 
-   ```bash
-   javac JavaClient.java
-   java JavaClient
-   ```
-
-   The Java client will prompt you to enter the amount in Indian Rupees. After entering the amount, it will send a POST request to the Flask microservice and print the response.
-
-
-### What a New User May Need to Modify:
-
-1. **Flask Microservice (`flask_server.py`):**
-   - If you want to change the conversion rate or add support for multiple currencies, modify the conversion logic in the Flask microservice.
-   - Customize the Flask microservice to handle additional error cases or enhance functionality as needed.
-   - Change the endpoint URL or port in the Flask application if necessary.
-
-2. **Java Client (`JavaClient.java`):**
-   - Modify the `url` variable to match the correct URL where the Flask microservice is running.
-   - Customize the Java client to handle different user inputs or add error-checking mechanisms.
-   - If you make changes to the microservice (e.g., different JSON payload structure), update the Java client accordingly.
-
-
-### Additional Notes:
-
-- Ensure that the microservice is running before executing the Java client.
-- Check network configurations to allow communication between the Java client and Flask microservice.
-- Review and customize the license, dependencies, and any other relevant sections in the README file.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+Feel free to explore and customize these scripts according to your needs!
+```
