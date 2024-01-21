@@ -1,3 +1,5 @@
+// Java code to call the service
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.OutputStream;
@@ -6,57 +8,32 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class JavaClient {
-
    public static void main(String[] args) throws Exception {
       String url = "http://localhost:5000/convert";
-      Scanner scanner = new Scanner(System.in);
-
-      // User input for amount
-      double amountInRs = getUserInput(scanner);
 
       // JSON payload
-      String jsonInputString = createJsonPayload(amountInRs);
-
-      // URL setup and send request
-      HttpURLConnection connection = setupConnection(url);
-      sendRequest(connection, jsonInputString);
-
-      // Get and print response
-      handleResponse(connection);
-
-      // Close resources
-      scanner.close();
-      connection.disconnect();
-   }
-
-   private static double getUserInput(Scanner scanner) {
       System.out.print("Enter the amount you want to convert: ");
-      return scanner.nextDouble();
-   }
+      Scanner scanner = new Scanner(System.in);
+      
+      double amountInRs = scanner.nextDouble();
+      String jsonInputString = "{\"amount_in_rs\": "+amountInRs+"}";
+      scanner.close();
 
-   private static String createJsonPayload(double amountInRs) {
-      return "{\"amount_in_rs\": " + amountInRs + "}";
-   }
-
-   private static HttpURLConnection setupConnection(String url) throws Exception {
       URL obj = new URL(url);
-      HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
-      connection.setRequestMethod("POST");
-      connection.setRequestProperty("Content-Type", "application/json");
-      connection.setDoOutput(true);
-      return connection;
-   }
+      HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+      con.setRequestMethod("POST");
+      con.setRequestProperty("Content-Type", "application/json");
 
-   private static void sendRequest(HttpURLConnection connection, String jsonInputString) throws Exception {
-      try (OutputStream os = connection.getOutputStream()) {
-         os.write(jsonInputString.getBytes());
-         os.flush();
-      }
-   }
+      // Send POST request
+      con.setDoOutput(true);
+      OutputStream os = con.getOutputStream();
+      os.write(jsonInputString.getBytes());
+      os.flush();
+      os.close();
 
-   private static void handleResponse(HttpURLConnection connection) throws Exception {
-      int responseCode = connection.getResponseCode();
-      BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      // Get response
+      int responseCode = con.getResponseCode();
+      BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
       String inputLine;
       StringBuffer response = new StringBuffer();
 
