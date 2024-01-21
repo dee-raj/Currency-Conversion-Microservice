@@ -69,11 +69,12 @@ This Flask application simulates a basic Virtual Server Management System, allow
 
 
 
+
 # Platform Application Management Service  ( PaaS )
 
 This Flask application provides a simple service for managing platform applications. It exposes two endpoints - one for creating a new application and another for listing all existing applications.
 
-# Follow Steps like above nad
+# Follow Steps like above and
    Run the Flask application:
    
    ```bash
@@ -143,6 +144,127 @@ This Flask application provides a simple service for managing platform applicati
       ]
     }
     ```
+
+
+# Platform Management API
+
+This Flask application serves as an API for managing applications on a platform. It includes functionalities for creating applications, listing applications, and managing SaaS subscriptions.
+
+## Setup
+   please Follow the same steps given as before ...
+
+
+Run the Flask application:
+
+   ```bash
+   python SaaS.py
+   ```
+The application will run on `http://127.0.0.1:5000/`. Use this base URL for making API requests.
+
+
+## Endpoints
+
+### 1. Create Application
+
+- **Endpoint:** `/create_application`
+- **Method:** `POST`
+- **Request Payload:**
+  ```json
+  {
+    "app_name": "Sample App",
+    "app_type": "Web Application"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "message": "Application created successfully",
+    "application": {
+      "app_name": "Sample App",
+      "app_type": "Web Application",
+      "provider": "Dee-coding"
+    }
+  }
+  ```
+
+### 2. List Applications
+
+- **Endpoint:** `/list_applications`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  {
+    "applications": [
+      {
+        "app_name": "Sample App",
+        "app_type": "Web Application",
+        "provider": "Dee-coding"
+      }
+      // ... other applications
+    ]
+  }
+  ```
+
+### 3. Subscribe to SaaS
+
+- **Endpoint:** `/subscribe`
+- **Method:** `POST`
+- **Request Payload:**
+  ```json
+  {
+   "app_name": "Sample SaaS App"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+   "message": "Subscribed successfully",
+   "subscription": {
+   "app_name": "Sample SaaS App"
+   }
+  }
+  ```
+
+### 4. Unsubscribe from SaaS
+
+- **Endpoint:** `/unsubscribe`
+- **Method:** `POST`
+- **Request Payload:**
+  ```json
+  {
+    "app_name": "Sample SaaS App"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+   "message": "Unsubscribed successfully",
+   "app_name": "Sample SaaS App"
+  }
+  ```
+
+### 5. List SaaS Subscriptions
+
+- **Endpoint:** `/list_subscriptions`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  {
+    "subscriptions": [
+      {
+        "app_name": "Sample SaaS App"
+      }
+      // ... other subscriptions
+    ]
+  }
+  ```
+
+## Author
+
+**Dee-coding**
+
+Feel free to explore and extend the functionalities based on your project requirements!
+
 
 ## Contributing
 
