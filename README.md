@@ -1,85 +1,51 @@
-# Currency Conversion Microservice
+#To perform the practical of the server-side code using Flask and the client-side code, you can follow these steps:
 
-This project implements a simple currency conversion microservice using Flask in Python. The microservice exposes an endpoint that accepts an amount in Indian Rupees and converts it to another currency. Additionally, a Java client is provided to demonstrate how to consume the microservice.
+### Server-Side Code (Flask):
 
-## Project Structure
-
-- **flask_server.py**: Contains the Flask application that serves as the currency conversion microservice.
-- **JavaClient.java**: A Java client that sends a POST request with an amount in Indian Rupees to the Flask microservice.
-
-## Dependencies
-
-- Flask
-- Java (for running the Java client)
-
-### Currency Conversion Microservice Overview:
-
-1. **Flask Microservice (`flask_server.py`):**
-   - The Flask application defines a single endpoint `/convert` that accepts POST requests.
-   - It expects a JSON payload with an `amount_in_rs` field representing the amount in Indian Rupees to be converted.
-   - The microservice performs a simple conversion (1 INR = 0.014 USD) and returns the result in the response.
-
-2. **Java Client (`JavaClient.java`):**
-   - The Java client is a simple console application that sends a POST request to the Flask microservice.
-   - It prompts the user to input the amount in Indian Rupees.
-   - The input amount is included in a JSON payload, and the POST request is sent to the microservice.
-   - The client then prints the response received from the microservice.
-
-
-## Running the Flask Microservice
-
-1. Install the required dependencies:
-
+1. **Install Flask:**
+   If you haven't installed Flask, you can do so using the following command:
    ```bash
    pip install Flask
    ```
 
-2. Run the Flask microservice:
+2. **Create the Flask Server Script (`web_server.py`):**
+   Copy and paste the provided server-side code into a file, for example, `web_server.py`.
 
+3. **Run the Flask Server:**
+   Open a terminal in the directory containing your `web_server.py` script and run the following command:
    ```bash
-   python flask_server.py
+   python web_server.py
+   ```
+   This will start the Flask server.
+
+
+### Client-Side Code:
+
+1. **Install Requests:**
+   If you haven't installed the `requests` library, you can do so using the following command:
+   ```bash
+   pip install requests
    ```
 
-   The microservice will start running on `http://localhost:5000`.
+2. **Create the Client Script (`soap_client.py`):**
+   Copy and paste the provided client-side code into a file, for example, `soap_client.py`.
 
-
-## Using the Java Client
-
-1. Open the `JavaClient.java` file in a Java development environment.
-
-2. Update the `url` variable with the correct URL of the Flask microservice.
-
-3. Compile and run the Java client.
-
+3. **Run the Client Script:**
+   Open a new terminal in the directory containing your `soap_client.py` script and run the following command:
    ```bash
-   javac JavaClient.java
-   java JavaClient
+   python soap_client.py
    ```
-
-   The Java client will prompt you to enter the amount in Indian Rupees. After entering the amount, it will send a POST request to the Flask microservice and print the response.
-
-
-### What a New User May Need to Modify:
-
-1. **Flask Microservice (`flask_server.py`):**
-   - If you want to change the conversion rate or add support for multiple currencies, modify the conversion logic in the Flask microservice.
-   - Customize the Flask microservice to handle additional error cases or enhance functionality as needed.
-   - Change the endpoint URL or port in the Flask application if necessary.
-
-2. **Java Client (`JavaClient.java`):**
-   - Modify the `url` variable to match the correct URL where the Flask microservice is running.
-   - Customize the Java client to handle different user inputs or add error-checking mechanisms.
-   - If you make changes to the microservice (e.g., different JSON payload structure), update the Java client accordingly.
+   This will execute the client script and attempt to download a file from the Flask server.
 
 
-### Additional Notes:
+### Notes:
 
-- Ensure that the microservice is running before executing the Java client.
-- Check network configurations to allow communication between the Java client and Flask microservice.
-- Review and customize the license, dependencies, and any other relevant sections in the README file.
+- Make sure the Flask server is running before executing the client script.
+- The provided client script attempts to download a file named `snake.ico`. Ensure that this file exists in the server's `uploads` folder or adjust the filename accordingly.
+- Adjust the paths and filenames in the code as needed based on your project structure.
+
+With these steps, you should be able to run the Flask server and the client script to upload and download files.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
