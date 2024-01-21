@@ -1,85 +1,76 @@
-# Currency Conversion Microservice
+# Virtual Server Management System
 
-This project implements a simple currency conversion microservice using Flask in Python. The microservice exposes an endpoint that accepts an amount in Indian Rupees and converts it to another currency. Additionally, a Java client is provided to demonstrate how to consume the microservice.
+This Flask application simulates a basic Virtual Server Management System, allowing users to create virtual servers, list existing servers, and view storage status.
 
-## Project Structure
+## Getting Started
 
-- **flask_server.py**: Contains the Flask application that serves as the currency conversion microservice.
-- **JavaClient.java**: A Java client that sends a POST request with an amount in Indian Rupees to the Flask microservice.
+### Prerequisites
 
-## Dependencies
-
+- Python (3.x recommended)
 - Flask
-- Java (for running the Java client)
 
-### Currency Conversion Microservice Overview:
+### Installation
 
-1. **Flask Microservice (`flask_server.py`):**
-   - The Flask application defines a single endpoint `/convert` that accepts POST requests.
-   - It expects a JSON payload with an `amount_in_rs` field representing the amount in Indian Rupees to be converted.
-   - The microservice performs a simple conversion (1 INR = 0.014 USD) and returns the result in the response.
-
-2. **Java Client (`JavaClient.java`):**
-   - The Java client is a simple console application that sends a POST request to the Flask microservice.
-   - It prompts the user to input the amount in Indian Rupees.
-   - The input amount is included in a JSON payload, and the POST request is sent to the microservice.
-   - The client then prints the response received from the microservice.
-
-
-## Running the Flask Microservice
-
-1. Install the required dependencies:
+1. Clone the repository:
 
    ```bash
-   pip install Flask
+   git clone https://github.com/dee-raj/WS-and-CC.git
    ```
 
-2. Run the Flask microservice:
+2. Navigate to the project directory:
 
    ```bash
-   python flask_server.py
+   cd virtual-server-management
    ```
 
-   The microservice will start running on `http://localhost:5000`.
-
-
-## Using the Java Client
-
-1. Open the `JavaClient.java` file in a Java development environment.
-
-2. Update the `url` variable with the correct URL of the Flask microservice.
-
-3. Compile and run the Java client.
+3. Install dependencies:
 
    ```bash
-   javac JavaClient.java
-   java JavaClient
+   pip install -r requirements.txt
    ```
 
-   The Java client will prompt you to enter the amount in Indian Rupees. After entering the amount, it will send a POST request to the Flask microservice and print the response.
+## Usage
 
+1. Run the Flask application:
 
-### What a New User May Need to Modify:
+   ```bash
+   python app.py
+   ```
 
-1. **Flask Microservice (`flask_server.py`):**
-   - If you want to change the conversion rate or add support for multiple currencies, modify the conversion logic in the Flask microservice.
-   - Customize the Flask microservice to handle additional error cases or enhance functionality as needed.
-   - Change the endpoint URL or port in the Flask application if necessary.
+2. The application will be accessible at `http://127.0.0.1:5000/` by default.
 
-2. **Java Client (`JavaClient.java`):**
-   - Modify the `url` variable to match the correct URL where the Flask microservice is running.
-   - Customize the Java client to handle different user inputs or add error-checking mechanisms.
-   - If you make changes to the microservice (e.g., different JSON payload structure), update the Java client accordingly.
+## Endpoints
 
+### Create a Server
 
-### Additional Notes:
+- **Endpoint:** `/create_server`
+- **Method:** `POST`
+- **Data Format:**
+  ```json
+  {
+    "server_name": "example_server",
+    "cpu": 2,
+    "ram": 4
+  }
+  ```
+- Creates a virtual server with the specified name, CPU, and RAM.
 
-- Ensure that the microservice is running before executing the Java client.
-- Check network configurations to allow communication between the Java client and Flask microservice.
-- Review and customize the license, dependencies, and any other relevant sections in the README file.
+### List Servers
+
+- **Endpoint:** `/list_servers`
+- **Method:** `GET`
+- **Returns:** A JSON object containing a list of virtual servers.
+
+### Get Storage Status
+
+- **Endpoint:** `/get_storage_status`
+- **Method:** `GET`
+- **Returns:** A JSON object containing storage status (used and total).
+
+## Contributing
+
+Feel free to contribute to enhance the functionality or fix any issues. Please follow standard practices and guidelines.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
