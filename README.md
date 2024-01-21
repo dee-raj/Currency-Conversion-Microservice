@@ -1,4 +1,4 @@
-# Virtual Server Management System
+# Virtual Server Management System ( IaaS )
 
 This Flask application simulates a basic Virtual Server Management System, allowing users to create virtual servers, list existing servers, and view storage status.
 
@@ -66,6 +66,83 @@ This Flask application simulates a basic Virtual Server Management System, allow
 - **Endpoint:** `/get_storage_status`
 - **Method:** `GET`
 - **Returns:** A JSON object containing storage status (used and total).
+
+
+
+# Platform Application Management Service  ( PaaS )
+
+This Flask application provides a simple service for managing platform applications. It exposes two endpoints - one for creating a new application and another for listing all existing applications.
+
+# Follow Steps like above nad
+   Run the Flask application:
+   
+   ```bash
+   python platform_app.py
+   ```
+   The application will run on http://127.0.0.1:5000/.
+
+## Endpoints
+
+### 1. Create Application
+
+- **Endpoint:** `/create_application`
+- **Method:** `POST`
+- **Payload:**
+  - `app_name` (string): Name of the application.
+  - `app_type` (string): Type or category of the application.
+- **Example:**
+
+  ```bash
+  curl -X POST -H "Content-Type: application/json" -d '{"app_name": "Decoding with Dee", "app_type": "Web"}' http://127.0.0.1:5000/create_application
+  ```
+
+- **Response:**
+  - Success: 200 OK
+
+    ```json
+    {
+      "message": "Application created successfully",
+      "application": {
+        "app_name": "Decoding with Dee",
+        "app_type": "Web",
+        "provider": "Dee-coding"
+      }
+    }
+    ```
+
+  - Failure: 400 Bad Request
+
+    ```json
+    {
+      "error": "Invalid data. App name and app type are required."
+    }
+    ```
+
+### 2. List Applications
+
+- **Endpoint:** `/list_applications`
+- **Method:** `GET`
+- **Example:**
+
+  ```bash
+  curl http://127.0.0.1:5000/list_applications
+  ```
+
+- **Response:**
+  - Success: 200 OK
+
+    ```json
+    {
+      "applications": [
+        {
+          "app_name": "Decoding with Dee",
+          "app_type": "Web",
+          "provider": "Dee-coding"
+        },
+        ...
+      ]
+    }
+    ```
 
 ## Contributing
 
