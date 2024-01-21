@@ -1,4 +1,4 @@
-#To perform the practical of the server-side code using Flask and the client-side code, you can follow these steps:
+# To perform the practical of the server-side code using Flask and the client-side code, you can follow these steps:
 
 ### Server-Side Code (Flask):
 
