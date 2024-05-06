@@ -1,0 +1,44 @@
+1. Install & configure Ubuntu-22.04.03
+2. Settings (system):
+   - motherboard : Enable EFI
+   - processor : Enable Nested VT-X/AMD-V
+
+3. Update Ubuntu:
+   > sudo apt update
+   > sudo apt upgrade
+
+4. check if virtualization is enabled:
+   > egrep -c '(vmx|svm)' /proc/cpuinfo
+
+5. KVM can run...
+   > kvm-ok
+   > sudo apt install cpu-checker
+   > kvm-ok
+
+
+1. Install KVM on Ubuntu
+   > sudo apt install -y qemu-kvm virt-manager libvirt-deamon-system virtinst libvirt-clients bridge-utils
+
+2. ESS virtualization deamon
+   > sudo systemctl enable --now libvirtd
+   > sudo systemctl start libvirtd
+   > sudo systemctl status libvirtd
+
+3. add user to kvm
+   > sudo usermod -aG KVM $USER
+   > sudo usermod -aG libvirt $USER
+
+4. (optional) create network bridge (br0)
+   $ sudo nano /etc/netplan/01-netcfg.yaml
+   ...
+   $ sudo netplan apply
+   $ ip add show
+
+
+
+1. Install Debian-12 in kvm 
+   - search 'virtual machine manager'
+   - if GEMU/KVM is disconnected 
+      then "restart" & connect network adapter
+   - file=>new virtual machine
+   follow instructions...
